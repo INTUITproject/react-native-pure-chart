@@ -1,0 +1,44 @@
+Linechart flow
+
+index.js - props.type === 'line'
+         - returns <LineChart {...this.props}/>
+
+Goes into LineChart Constructor
+initData is called on the props, some are user entered, some are class defaults
+initData returns an object of shape
+{
+    sortedData: sortedData,
+    max: max,
+    selectedIndex: null,
+    nowHeight: 200,
+    nowWidth: 200,
+    scrollPosition: 0,
+    nowX: 0,
+    nowY: 0,
+    guideArray: guideArray
+};
+
+where sortedData is formed from refineData(flattenData(dataProp), max, height, gap)
+
+flattenData returns an array of shape
+[{
+    seriesName: "",
+    data: dataProp
+}] 
+
+refineData returns sortedData, an array of shape where data is sorted by gap
+{
+    seriesName,
+    seriesColor,
+    data: [{
+        gap,
+        ratioY,
+        x,
+        y,
+        isEmpty
+    }]
+}
+
+In the render function
+
+drawCoordinates
