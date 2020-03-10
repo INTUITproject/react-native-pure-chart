@@ -2,6 +2,7 @@ import React from "react";
 import {
   View,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   Text,
   Animated,
   Easing,
@@ -451,16 +452,17 @@ class LineChart extends React.Component {
                           : series.seriesColor,
                       }}
                     />
-                    <TouchableWithoutFeedback
-                      onPress={() => {
-                        console.log("pressed");
-                      }}
-                    >
-                      <Text style={styles.tooltipValue}>
+                    <TouchableOpacity>
+                      <Text
+                        style={styles.tooltipValue}
+                        onPress={() => {
+                          console.log("pressed");
+                        }}
+                      >
                         {numberWithCommas(dataObject.y.value, false)}{" "}
                         {dataObject.y.comment}
                       </Text>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                   </View>
                 </View>
               );
