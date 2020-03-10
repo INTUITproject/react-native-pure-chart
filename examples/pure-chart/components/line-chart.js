@@ -406,31 +406,31 @@ class LineChart extends React.Component {
       }
 
       return (
-        <TouchableWithoutFeedback
-          onPress={() => {
-            console.log("selected pressed");
-          }}
+        <View
+          style={StyleSheet.flatten([
+            styles.selectedWrapper,
+            {
+              left: left,
+              justifyContent: "center",
+            },
+          ])}
         >
           <View
             style={StyleSheet.flatten([
-              styles.selectedWrapper,
+              styles.selectedLine,
               {
-                left: left,
-                justifyContent: "center",
+                backgroundColor: this.props.selectedColor,
+                marginLeft: gap,
               },
             ])}
-          >
-            <View
-              style={StyleSheet.flatten([
-                styles.selectedLine,
-                {
-                  backgroundColor: this.props.selectedColor,
-                  marginLeft: gap,
-                },
-              ])}
-            />
+          />
 
-            <View style={StyleSheet.flatten([styles.selectedBox])}>
+          <View style={StyleSheet.flatten([styles.selectedBox])}>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                console.log("selected pressed");
+              }}
+            >
               {this.state.sortedData.map(series => {
                 let dataObject = series.data[this.state.selectedIndex];
                 return (
@@ -464,9 +464,9 @@ class LineChart extends React.Component {
                   </View>
                 );
               })}
-            </View>
+            </TouchableWithoutFeedback>
           </View>
-        </TouchableWithoutFeedback>
+        </View>
       );
     } else {
       return null;
