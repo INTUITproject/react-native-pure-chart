@@ -426,45 +426,45 @@ class LineChart extends React.Component {
           />
 
           <View style={StyleSheet.flatten([styles.selectedBox])}>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                console.log("selected pressed");
-              }}
-            >
-              {this.state.sortedData.map(series => {
-                let dataObject = series.data[this.state.selectedIndex];
-                return (
-                  <View key={series.seriesName}>
-                    {dataObject.x ? (
-                      <Text style={styles.tooltipTitle}>{dataObject.x}</Text>
-                    ) : null}
+            {this.state.sortedData.map(series => {
+              let dataObject = series.data[this.state.selectedIndex];
+              return (
+                <View key={series.seriesName}>
+                  {dataObject.x ? (
+                    <Text style={styles.tooltipTitle}>{dataObject.x}</Text>
+                  ) : null}
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      paddingLeft: 5,
+                      alignItems: "center",
+                    }}
+                  >
                     <View
                       style={{
-                        flexDirection: "row",
-                        paddingLeft: 5,
-                        alignItems: "center",
+                        width: 10,
+                        height: 5,
+                        marginRight: 3,
+                        borderRadius: 2,
+                        backgroundColor: !series.seriesColor
+                          ? this.props.primaryColor
+                          : series.seriesColor,
+                      }}
+                    />
+                    <TouchableWithoutFeedback
+                      onPress={() => {
+                        console.log("pressed");
                       }}
                     >
-                      <View
-                        style={{
-                          width: 10,
-                          height: 5,
-                          marginRight: 3,
-                          borderRadius: 2,
-                          backgroundColor: !series.seriesColor
-                            ? this.props.primaryColor
-                            : series.seriesColor,
-                        }}
-                      />
                       <Text style={styles.tooltipValue}>
                         {numberWithCommas(dataObject.y.value, false)}{" "}
                         {dataObject.y.comment}
                       </Text>
-                    </View>
+                    </TouchableWithoutFeedback>
                   </View>
-                );
-              })}
-            </TouchableWithoutFeedback>
+                </View>
+              );
+            })}
           </View>
         </View>
       );
