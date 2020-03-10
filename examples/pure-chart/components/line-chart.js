@@ -406,61 +406,67 @@ class LineChart extends React.Component {
       }
 
       return (
-        <View
-          style={StyleSheet.flatten([
-            styles.selectedWrapper,
-            {
-              left: left,
-              justifyContent: "center",
-            },
-          ])}
+        <TouchableWithoutFeedback
+          onPress={() => {
+            console.log("selected pressed");
+          }}
         >
           <View
             style={StyleSheet.flatten([
-              styles.selectedLine,
+              styles.selectedWrapper,
               {
-                backgroundColor: this.props.selectedColor,
-                marginLeft: gap,
+                left: left,
+                justifyContent: "center",
               },
             ])}
-          />
+          >
+            <View
+              style={StyleSheet.flatten([
+                styles.selectedLine,
+                {
+                  backgroundColor: this.props.selectedColor,
+                  marginLeft: gap,
+                },
+              ])}
+            />
 
-          <View style={StyleSheet.flatten([styles.selectedBox])}>
-            {this.state.sortedData.map(series => {
-              let dataObject = series.data[this.state.selectedIndex];
-              return (
-                <View key={series.seriesName}>
-                  {dataObject.x ? (
-                    <Text style={styles.tooltipTitle}>{dataObject.x}</Text>
-                  ) : null}
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      paddingLeft: 5,
-                      alignItems: "center",
-                    }}
-                  >
+            <View style={StyleSheet.flatten([styles.selectedBox])}>
+              {this.state.sortedData.map(series => {
+                let dataObject = series.data[this.state.selectedIndex];
+                return (
+                  <View key={series.seriesName}>
+                    {dataObject.x ? (
+                      <Text style={styles.tooltipTitle}>{dataObject.x}</Text>
+                    ) : null}
                     <View
                       style={{
-                        width: 10,
-                        height: 5,
-                        marginRight: 3,
-                        borderRadius: 2,
-                        backgroundColor: !series.seriesColor
-                          ? this.props.primaryColor
-                          : series.seriesColor,
+                        flexDirection: "row",
+                        paddingLeft: 5,
+                        alignItems: "center",
                       }}
-                    />
-                    <Text style={styles.tooltipValue}>
-                      {numberWithCommas(dataObject.y.value, false)}{" "}
-                      {dataObject.y.comment}
-                    </Text>
+                    >
+                      <View
+                        style={{
+                          width: 10,
+                          height: 5,
+                          marginRight: 3,
+                          borderRadius: 2,
+                          backgroundColor: !series.seriesColor
+                            ? this.props.primaryColor
+                            : series.seriesColor,
+                        }}
+                      />
+                      <Text style={styles.tooltipValue}>
+                        {numberWithCommas(dataObject.y.value, false)}{" "}
+                        {dataObject.y.comment}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              );
-            })}
+                );
+              })}
+            </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       );
     } else {
       return null;
